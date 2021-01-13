@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "ROOM")
 public class Room {
     @Id
     @GeneratedValue
@@ -18,28 +19,29 @@ public class Room {
 
     @Column(name = "Target_temperature")
     private Double tmp;
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade=CascadeType.REMOVE)
     private List<Heater> heaters;
-    @OneToMany(mappedBy = "room")
-    private Set<Window> window;
+    @OneToMany(mappedBy = "room", cascade=CascadeType.REMOVE)
+    private List<Window> window;
     @ManyToOne
     private Building building;
 
 
-    public Room(Integer floor, String name, Set<Window> window, List<Heater> heaters, Building building, Double currenttmp, Double tmp) {
-    }
 
-    public Room(Integer floor, String name, Double currenttmp, Double tmp, List<Heater> heaters, Set<Window> window, Building building) {
+
+    public Room(Integer floor, String name, Double currenttmp, Double tmp) {
         this.floor = floor;
         this.name = name;
         this.currenttmp = currenttmp;
         this.tmp = tmp;
-        this.heaters = heaters;
-        this.window = window;
-        this.building = building;
+
+    }
+
+    public Room(Integer floor, String name, Set<Window> window, List<Heater> heaters, Building building, Double currenttmp, Double tmp) {
     }
 
     public Room() {
+
     }
 
     public List<Heater> getHeaters() {
@@ -50,7 +52,7 @@ public class Room {
         this.heaters = heaters;
     }
 
-    public Room(String name) {
+    public Room(Integer floor, String name, List<Window> window, List<Heater> heaters, Building building, Double currenttmp, Double tmp) {
         this.name = name;
     }
 
@@ -94,11 +96,11 @@ public class Room {
         this.tmp = tmp;
     }
 
-    public Set<Window> getWindow() {
+    public List<Window> getWindow() {
         return window;
     }
 
-    public void setWindow(Set<Window> window) {
+    public void setWindow(List<Window> window) {
         this.window = window;
     }
 

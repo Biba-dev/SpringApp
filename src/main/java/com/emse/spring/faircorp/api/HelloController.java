@@ -4,8 +4,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 
-@CrossOrigin
+
 @RestController
+@CrossOrigin
 @RequestMapping("/api/hello")
 @Transactional
 public class HelloController {

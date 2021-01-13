@@ -6,7 +6,6 @@ import com.emse.spring.faircorp.model.Room;
 import com.emse.spring.faircorp.model.Window;
 
 import java.util.List;
-import java.util.Set;
 
 
 public class RoomDto {
@@ -16,7 +15,7 @@ public class RoomDto {
     private Integer floor;
     private Double tmp;
     private List<Heater> heaters;
-    private Set<Window> window;
+    private List<Window> window;
     private Building building;
 
     public RoomDto() {
@@ -28,9 +27,7 @@ public class RoomDto {
         this.currenttmp = room.getCurrenttmp();
         this.floor = room.getFloor();
         this.tmp = room.getTmp();
-        this.heaters = room.getHeaters();
-        this.window = room.getWindow();
-        this.building = room.getBuilding();
+
     }
 
     public Long getId() {
@@ -82,11 +79,11 @@ public class RoomDto {
         this.heaters = heaters;
     }
 
-    public Set<Window> getWindow() {
+    public List<Window> getWindow() {
         return window;
     }
 
-    public void setWindow(Set<Window> window) {
+    public void setWindow(List<Window> window) {
         this.window = window;
     }
 

@@ -11,8 +11,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin
+
 @RestController // a Spring stereotype to mark a class as a rest service
+@CrossOrigin
 @RequestMapping("/api/rooms")
 // used to define a global URL prefix used to manage a resource (in our example all requests that start with /api/heaters will be handle by this controller)
 @Transactional // used to delegate a transaction opening to Spring.
@@ -45,8 +46,10 @@ public class RoomController {
     @PutMapping(path = "/{id}/switchWindow")
     public RoomDto switchWindowStatus(@PathVariable Long id) {
         Room room = roomDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        Window window = (Window) room.getWindow();
-        window.setWindowStatus(window.getWindowStatus() == WindowStatus.OPEN ? WindowStatus.CLOSED : WindowStatus.OPEN);
+        for (int i=0;i<room.getWindow().size();i++){
+            Window window = room.getWindow().get(i);
+            window.setWindowStatus(window.getWindowStatus() == WindowStatus.OPEN ? WindowStatus.CLOSED: WindowStatus.OPEN);
+        }
         return new RoomDto(room);
     }
 
@@ -54,8 +57,10 @@ public class RoomController {
     @PutMapping(path = "/{id}/switchHeaters")
     public RoomDto switchHeatersStatus(@PathVariable Long id) {
         Room room = roomDao.findById(id).orElseThrow(IllegalArgumentException::new);
-        Heater heater = (Heater) room.getHeaters();
-        heater.setHeaterStatus(heater.getHeaterStatus() == HeaterStatus.ON ? HeaterStatus.OFF : HeaterStatus.ON);
+        for (int i=0;i<room.getHeaters().size();i++){
+            Heater heater = room.getHeaters().get(i);
+            heater.setHeaterStatus(heater.getHeaterStatus() == HeaterStatus.ON ? HeaterStatus.OFF: HeaterStatus.ON);
+        }
         return new RoomDto(room);
     }
 

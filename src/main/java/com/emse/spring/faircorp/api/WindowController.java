@@ -22,7 +22,7 @@ public class WindowController {
     private final WindowDao windowDao;
     private final RoomDao roomDao;
 
-    public WindowController(WindowDao windowDao, RoomDao roomDao) { // (4)
+    public WindowController(WindowDao windowDao, RoomDao roomDao) {
         this.windowDao = windowDao;
         this.roomDao = roomDao;
     }
@@ -36,6 +36,11 @@ public class WindowController {
     public WindowDto findById(@PathVariable Long id) {
         return windowDao.findById(id).map(WindowDto::new).orElse(null); // (7)
     }
+    //find room in windows by room id
+//    @GetMapping(path = "/{id}")
+//    public WindowDto findRoomById(@PathVariable Long id) {
+//        return windowDao.findRoomById(id).map(WindowDto::new).orElse(null); // (7)
+//    }
 
     @PutMapping(path = "/{id}/switch")
     public WindowDto switchStatus(@PathVariable Long id) {
@@ -57,7 +62,7 @@ public class WindowController {
             window.setWindowStatus(dto.getWindowStatus());
         }
         return new WindowDto(window);
-    }// can you open the folder of your pro
+    }
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Long id) {
         windowDao.deleteById(id);
